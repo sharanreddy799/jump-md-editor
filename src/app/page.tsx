@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
+
 export default function Home() {
   const [markdown, setMarkdown] = useState("");
   const renderedRef = useRef<HTMLDivElement>(null);
@@ -15,8 +16,8 @@ export default function Home() {
 
   const handleExport = async () => {
     if (renderedRef.current) {
-      const html2pdf = (await import("html2pdf.js")).default;
-      html2pdf().from(renderedRef.current).save("markdown-export.pdf");
+      const { exportElementToPDF } = await import("@/utils/exportToPDF");
+      exportElementToPDF(renderedRef.current);
     }
   };
 
